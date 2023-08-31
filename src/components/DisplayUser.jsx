@@ -1,24 +1,82 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import { MdDeleteForever } from "react-icons/md";
+import { removeUser } from "../stores/slice/UserSlice";
 
 const DisplayUser = () => {
-  const data = useSelector((state)=>{
-    return state.users;
-  })
-  // console.log(data);
-  return (
-    <div>
-      hello
-      {
-        data.map((user, id)=>{
-          return (<li key={id}>
-            {user}
-          </li>)
-        })
-      }
-    </div>
-  )
-}
+  const dispatch = useDispatch();
 
-export default DisplayUser
+  const data = useSelector((state) => {
+    return state.users;
+  });
+  // console.log(data);
+
+  const deleteUser = (id) => {
+    dispatch(removeUser(id));
+  };
+
+  return (
+    <Wrapper>
+      <div>
+        {data.map((user, id) => {
+          return (
+            <li key={id}>
+              {user}
+
+              <button className="delete-btn">
+                <MdDeleteForever
+                  className="delete-icon butt"
+                  onClick={() => deleteUser(id)}
+                />
+              </button>
+            </li>
+          );
+        })}
+      </div>
+    </Wrapper>
+  );
+};
+const Wrapper = styled.section`
+  margin: 1rem 3.2rem;
+
+  .content ul {
+    list-style-type: none !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  .admin-table {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 4rem 0;
+  }
+
+  .admin-subtitle {
+    font-size: 3.2rem;
+  }
+
+  .delete-btn {
+    background-color: transparent;
+    border: none;
+  }
+
+  .delete-icon {
+    font-size: 2.6rem;
+    color: #f12711;
+    filter: drop-shadow(0.2rem 0.2rem 0.5rem rgb(255 0 0 / 0.2));
+    cursor: pointer;
+  }
+  @media screen and (max-width: 998px) {
+    .admin-subtitle {
+      margin-bottom: 1.6rem;
+    }
+  }
+`;
+
+export default DisplayUser;
