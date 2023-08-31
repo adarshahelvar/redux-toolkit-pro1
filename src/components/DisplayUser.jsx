@@ -11,8 +11,10 @@ const DisplayUser = () => {
     <div>
       hello
       {
-        data.map((elm)=>{
-          <li>hi</li>
+        data.map((user, id)=>{
+          return (<li key={id}>
+            {user}
+          </li>)
         })
       }
     </div>
