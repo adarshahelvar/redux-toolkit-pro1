@@ -15,6 +15,7 @@ const userSlice = createSlice({
     },
     deleteUsers(state, action) {
       //to delete all users
+      return [];
     },
   },
 });
